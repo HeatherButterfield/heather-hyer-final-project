@@ -1,19 +1,20 @@
 <template>
   <v-app>
-    <RecipeCard/>
+    <RecipeResults :recipes="recipes"/>
   </v-app>
 </template>
 
 <script>
-import RecipeCard from './components/RecipeCard';
+import RecipeResults from './components/RecipeResults';
+import { recipes } from './assets/recipes'
 
 export default {
   name: 'App',
   components: {
-    RecipeCard,
+    RecipeResults,
   },
   data: () => ({
-    //
+    recipes
   }),
 };
 </script>

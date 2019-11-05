@@ -5,12 +5,12 @@
       max-width="344"
     >
       <v-img
-        src="https://images.media-allrecipes.com/userphotos/720x405/4138609.jpg"
+        :src="'https://spoonacular.com/recipeImages/' + recipe.image"
         height="200px"
       ></v-img>
 
       <v-card-title>
-        Apple Crisp Pie
+        {{ recipe.title }}
       </v-card-title>
 
       <v-card-actions>
@@ -93,6 +93,7 @@
 
 <script>
 export default {
+  props: ["recipe"],
   data: () => ({
     showi: false,
     showd: false
