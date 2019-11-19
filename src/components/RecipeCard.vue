@@ -23,7 +23,7 @@
 
       <v-btn
         icon
-        @click="showi = !showi"
+        @click="getIngredients"
       >
         <v-icon>{{ showi ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
@@ -34,7 +34,9 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          <Ingredients/>
+          <ul v-for="ingredient in ingredients" v-bind:key="ingredient.name">
+            <li>{{ ingredient.originalString }}</li>
+          </ul>
         </v-card-text>
       </div>
     </v-expand-transition>
@@ -49,7 +51,7 @@
 
     <v-btn
       icon
-      @click="showd = !showd"
+      @click="getDirections"
     >
       <v-icon>{{ showd ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
     </v-btn>
@@ -60,12 +62,7 @@
       <v-divider></v-divider>
 
       <v-card-text>
-        Preheat oven to 400 degrees F (200 degrees C). Spray a 9-inch pie dish with cooking spray.
-        To make the crust, beat 1/2 cup of butter with cream cheese in a mixing bowl with an electric mixer until thoroughly combined; scrape the sides of mixing bowl occasionally to incorporate all the butter and cream cheese. Beat in 1 1/4 cups flour, the white sugar, and salt on medium-low speed until the mixture looks like coarse cornmeal, about 20 seconds. Increase the speed to medium-high, and beat until the dough begins to clump together, about 30 more seconds.
-        Lay out a 24-inch piece of waxed paper on a work surface, and scoop the dough out onto the left half of the paper. Form it into a ball, and flatten it into a 6-inch disk; fold the right side of the paper over the dough disk, covering the dough. With the rolling pin on top of the paper, gently roll the dough out into a round crust about 1/8-inch thick; peel off the top half of the waxed paper, turn the dough out onto the prepared pie dish, and fit the dough into the dish. Peel of the remaining portion of waxed paper.
-        To make the filling, mix together the apples and lemon juice in a bowl. In a small bowl, mix 1/4 cup of brown sugar, 2 tablespoons of flour, the cinnamon, nutmeg, and ginger together until thoroughly combined, then mix the flour mixture with the apples. Pour the apple filling into the crust.
-        To make the topping, combine 1/4 cup of brown sugar, 2 tablespoons of flour, and the oats; with a pastry cutter, cut in 6 tablespoons of butter, until the mixture looks like coarse crumbs. Spoon the topping evenly over the apple filling.
-        Bake in the preheated oven until the apple filling is bubbling and the topping is golden brown, about 40 minutes. If the crust begins to look brown after about 20 minutes of baking, cover the crust edge with a strip of aluminum foil.
+        <p>{{ directions }}</p>
       </v-card-text>
     </div>
   </v-expand-transition>
@@ -76,16 +73,53 @@
 </template>
 
 <script>
-import Ingredients from './Ingredients';
+import axios from 'axios';
 
 export default {
   components: {
-    Ingredients,
   },
   props: ["recipe"],
   data: () => ({
     showi: false,
-    showd: false
+    showd: false,
+    ingredients: [],
+    directions: ''
   }),
+  methods: {
+    getIngredients() {
+      this.showi = !this.showi;
+      let vm = this;
+      let url = "https://webknox-recipes.p.rapidapi.com/recipes/" + vm.recipe.id + "/information";
+      return axios({
+        "method":"GET",
+        "url": url,
+        "headers":{
+        "content-type":"application/octet-stream",
+        "x-rapidapi-host":"webknox-recipes.p.rapidapi.com",
+        "x-rapidapi-key":"97a621d563msh086acdf5f8c2825p130acbjsn9b527c1f9c37"
+        }
+        })
+        .then((response)=>{
+          vm.ingredients = response.data.extendedIngredients;
+        })
+    },
+    getDirections() {
+      this.showd = !this.showd;
+      let vm = this;
+      let url = "https://webknox-recipes.p.rapidapi.com/recipes/" + vm.recipe.id + "/information";
+      return axios({
+        "method":"GET",
+        "url": url,
+        "headers":{
+        "content-type":"application/octet-stream",
+        "x-rapidapi-host":"webknox-recipes.p.rapidapi.com",
+        "x-rapidapi-key":"97a621d563msh086acdf5f8c2825p130acbjsn9b527c1f9c37"
+        }
+        })
+        .then((response)=>{
+          vm.directions = response.data.instructions;
+        })
+    }
+  }
 };
 </script>
