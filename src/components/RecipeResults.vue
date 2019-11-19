@@ -14,13 +14,15 @@
 import RecipeCard from './RecipeCard';
 
 export default {
-  name: 'App',
   components: {
     RecipeCard,
   },
   props: ["recipes"],
   data: () => ({
-    //
+
   }),
+  methods: {
+
+  }
 };
 </script>

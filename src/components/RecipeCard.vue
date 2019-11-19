@@ -15,7 +15,7 @@
 
       <v-card-actions>
 
-      <v-btn>
+      <v-btn text>
         Ingredients
       </v-btn>
 
@@ -34,30 +34,14 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          <ul>
-            <li>1/2 cup butter, softened</li>
-            <li>2 ounces cream cheese, softened</li>
-            <li>1 1/4 cups all-purpose flour</li>
-            <li>2 tablespoons white sugar</li>
-            <li>1/4 teaspoon salt6 cups Granny Smith apples - peeled, cored and thinly sliced</li>
-            <li>1 tablespoon lemon juice</li>
-            <li>1/4 cup brown sugar</li>
-            <li>2 tablespoons all-purpose flour</li>
-            <li>1/2 teaspoon ground cinnamon</li>
-            <li>1/4 teaspoon ground nutmeg</li>
-            <li>1/8 teaspoon ground ginger</li>
-            <li>1/4 cup brown sugar</li>
-            <li>2 tablespoons all-purpose flour</li>
-            <li>10 tablespoons quick cooking oats</li>
-            <li>6 tablespoons butter</li>
-          </ul>
+          <Ingredients/>
         </v-card-text>
       </div>
     </v-expand-transition>
 
     <v-card-actions>
 
-    <v-btn>
+    <v-btn text>
       Directions
     </v-btn>
 
@@ -92,7 +76,12 @@
 </template>
 
 <script>
+import Ingredients from './Ingredients';
+
 export default {
+  components: {
+    Ingredients,
+  },
   props: ["recipe"],
   data: () => ({
     showi: false,
