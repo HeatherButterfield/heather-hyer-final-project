@@ -14,11 +14,15 @@
           sm="8"
           md="4"
         >
-          <v-form class="form">
+          <v-form class="form"
+          ref="form"
+          v-model="valid"
+          lazy-validation>
+            <h1>Recipe Search</h1>
             <v-text-field
               v-model="main"
-              v-validate="'required'"
               label="Search for a recipe (ex: burgers, pizza, etc...)"
+              :rules="[v => !!v || 'This field is required']"
               required
             ></v-text-field>
             <v-select
@@ -46,6 +50,7 @@ export default {
     RecipeResults,
   },
   data: () => ({
+    valid: true,
     recipes: [],
     main: '',
     type: '',
