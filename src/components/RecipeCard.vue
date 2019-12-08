@@ -5,6 +5,7 @@
       max-width="344"
       v-shadow
     >
+    
       <v-img
         :src="'https://spoonacular.com/recipeImages/' + recipe.image"
         height="200px"

@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col v-for="recipe in recipes" v-bind:key="recipe.id">
-          <RecipeCard :recipe="recipe"/>
+            <RecipeCard :recipe="recipe"/>
         </v-col>
       </v-row>
     </v-container>

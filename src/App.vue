@@ -1,87 +1,43 @@
 <template>
   <v-app>
   <v-content>
-    <v-container
-      class="fill-height"
-      fluid
+    <v-card class="light-blue">
+    <v-card-title class="text-center justify-center py-6">
+      <h1 class="font-weight-bold display-3 white--text">Recipe Search</h1>
+    </v-card-title>
+
+    <v-tabs
+      v-model="tab"
+      background-color="transparent"
+      grow
     >
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-col
-          cols="12"
-          sm="8"
-          md="4"
-        >
-          <v-form class="form"
-          ref="form"
-          v-model="valid"
-          lazy-validation>
-            <h1>Recipe Search</h1>
-            <v-text-field
-              v-model="main"
-              label="Search for a recipe (ex: burgers, pizza, etc...)"
-              :rules="[v => !!v || 'This field is required']"
-              required
-            ></v-text-field>
-            <v-select
-              v-model="type"
-              :items="typeItems"
-              label="Type of food (optional)"
-            ></v-select>
-            <v-btn @click="getData">Search</v-btn>
-          </v-form>
-        </v-col>
-      </v-row>
-    </v-container>
+      <v-tab><router-link to="/" tag="p" class="white--text">All</router-link></v-tab>
+      <v-tab><router-link to="/maincourse" tag="p" class="white--text">Main Course</router-link></v-tab>
+      <v-tab><router-link to="/sidedish" tag="p" class="white--text">Side Dish</router-link></v-tab>
+      <v-tab><router-link to="/dessert" tag="p" class="white--text">Dessert</router-link></v-tab>
+
+    </v-tabs>
+  </v-card>
+    <router-view></router-view>
   </v-content>
-    <RecipeResults :recipes="recipes"/>
   </v-app>
 </template>
 
+<style>
+  .link {
+    text-decoration: none;
+  }
+</style>
+
 <script>
-import RecipeResults from './components/RecipeResults';
-import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
-    RecipeResults,
+
   },
   data: () => ({
-    valid: true,
-    recipes: [],
-    main: '',
-    type: '',
-    typeItems: ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "drink"]
+  items : ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "drink"]
   }),
-  methods: {
-    getData() {
-      let vm = this;
-      return axios({
-        "method":"GET",
-        "url":"https://webknox-recipes.p.rapidapi.com/recipes/search",
-        "headers":{
-        "content-type":"application/octet-stream",
-        "x-rapidapi-host":"webknox-recipes.p.rapidapi.com",
-        "x-rapidapi-key":"97a621d563msh086acdf5f8c2825p130acbjsn9b527c1f9c37"
-        },"params":{
-        "offset":"0",
-        "type": vm.type,
-        "query": vm.main
-        }
-        })
-      .then(function (response) {
-        vm.recipes = response.data.results;
-      });
-    }
-  }
 };
 </script>
-
-<style>
-  .form {
-    width: 400px;
-  }
-</style>
