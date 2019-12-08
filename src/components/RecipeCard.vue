@@ -3,6 +3,7 @@
     <v-card
       class="mx-auto"
       max-width="344"
+      v-shadow
     >
       <v-img
         :src="'https://spoonacular.com/recipeImages/' + recipe.image"
