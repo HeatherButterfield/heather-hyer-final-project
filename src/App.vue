@@ -7,7 +7,6 @@
     </v-card-title>
 
     <v-tabs
-      v-model="tab"
       background-color="transparent"
       grow
     >

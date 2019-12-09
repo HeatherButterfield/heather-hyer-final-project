@@ -31,7 +31,9 @@
       </v-row>
     </v-container>
   </v-content>
-    <RecipeResults :recipes="recipes"/>
+    <transition name="fade">
+      <RecipeResults :recipes="recipes"/>
+    </transition>
   </v-app>
 </template>
 
@@ -48,6 +50,7 @@ export default {
   data: () => ({
     valid: true,
     noResults: false,
+    results: false,
     recipes: [],
     main: '',
     error: ''
@@ -86,5 +89,12 @@ export default {
   .center {
     margin-top: 40px;
     text-align: center;
+  }
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    transition: opacity 1s;
+    opacity: 1;
   }
 </style>
