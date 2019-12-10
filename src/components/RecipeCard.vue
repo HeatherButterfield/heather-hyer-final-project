@@ -7,7 +7,7 @@
     >
 
       <v-img
-        :src="'https://spoonacular.com/recipeImages/' + recipe.image"
+        :src="source"
         height="200px"
       ></v-img>
 
@@ -95,11 +95,18 @@ export default {
     showd: false,
     ingredients: [],
     directions: '',
-    color: "grey"
+    color: "grey",
+    source: ""
   }),
   created: function() {
     if (this.isfavorite) {
       this.color = "red";
+    }
+    if (this.recipe.image.includes("https")) {
+      this.source = this.recipe.image;
+    }
+    else {
+      this.source = 'https://spoonacular.com/recipeImages/' + this.recipe.image;
     }
   },
   methods: {
