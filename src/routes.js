@@ -1,14 +1,11 @@
-import MainCourse from './components/MainCourse.vue'
-import SideDish from './components/SideDish.vue'
-import Dessert from './components/Dessert.vue'
-import All from './components/All.vue'
+import RecipeSearch from './components/RecipeSearch.vue'
+import About from './components/About.vue'
+import Favorites from './components/Favorites.vue'
+
 
 
 export const routes = [
-  { path: '/', component: All },
-  { path: '/maincourse', component: MainCourse },
-  { path: '/sidedish', component: SideDish },
-  { path: '/dessert', component: Dessert },
-
-
+  { path: '/', component: RecipeSearch },
+  { path: '/about', component: About },
+  { path: '/favorites', component: Favorites },
 ];

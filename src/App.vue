@@ -1,22 +1,54 @@
 <template>
   <v-app>
   <v-content>
-    <v-card class="light-blue">
-    <v-card-title class="text-center justify-center py-6">
-      <h1 class="font-weight-bold display-3 white--text">Recipe Search</h1>
-    </v-card-title>
+    <v-card>
+      <v-toolbar class="light-blue white--text">
 
-    <v-tabs
-      background-color="transparent"
-      grow
-    >
-      <v-tab><router-link to="/" tag="p" class="white--text">All</router-link></v-tab>
-      <v-tab><router-link to="/maincourse" tag="p" class="white--text">Main Course</router-link></v-tab>
-      <v-tab><router-link to="/sidedish" tag="p" class="white--text">Side Dish</router-link></v-tab>
-      <v-tab><router-link to="/dessert" tag="p" class="white--text">Dessert</router-link></v-tab>
+        <v-toolbar-title><h1>Recipe Search</h1></v-toolbar-title>
 
-    </v-tabs>
-  </v-card>
+        <v-spacer></v-spacer>
+
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <span v-on="on">
+              <router-link to="/" tag="span">
+                <v-btn icon>
+                  <v-icon :color="white">mdi-magnify</v-icon>
+                </v-btn>
+              </router-link>
+            </span>
+          </template>
+          <span>Search</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <span v-on="on">
+              <router-link to="/favorites" tag="span">
+                <v-btn icon>
+                  <v-icon :color="white">mdi-heart</v-icon>
+                </v-btn>
+              </router-link>
+            </span>
+          </template>
+          <span>Favorites</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <span v-on="on">
+              <router-link to="/about" tag="span">
+                <v-btn icon>
+                  <v-icon :color="white">mdi-help</v-icon>
+                </v-btn>
+              </router-link>
+            </span>
+          </template>
+          <span>About</span>
+        </v-tooltip>
+
+      </v-toolbar>
+    </v-card>
     <router-view></router-view>
   </v-content>
   </v-app>
@@ -36,6 +68,7 @@ export default {
 
   },
   data: () => ({
+  white: "white",
   items : ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "drink"]
   }),
 };

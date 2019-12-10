@@ -5,7 +5,7 @@
       max-width="344"
       v-shadow
     >
-    
+
       <v-img
         :src="'https://spoonacular.com/recipeImages/' + recipe.image"
         height="200px"
@@ -14,6 +14,15 @@
       <v-card-title>
         {{ recipe.title }}
       </v-card-title>
+
+      <v-card-actions>
+
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon @click="favorite" :color="color">mdi-heart</v-icon>
+        </v-btn>
+
+      </v-card-actions>
 
       <v-card-actions>
 
@@ -80,14 +89,32 @@ import axios from 'axios';
 export default {
   components: {
   },
-  props: ["recipe"],
+  props: ["recipe", "isfavorite"],
   data: () => ({
     showi: false,
     showd: false,
     ingredients: [],
-    directions: ''
+    directions: '',
+    color: "grey"
   }),
+  created: function() {
+    if (this.isfavorite) {
+      this.color = "red";
+    }
+  },
   methods: {
+    favorite() {
+      if (this.color == "grey") {
+        this.isfavorite = true;
+        this.color = "red";
+        this.$store.state.favorites.push(this.recipe.id);
+      }
+      else {
+        this.isfavorite = false;
+        this.color = "grey";
+        this.$store.state.favorites = this.$store.state.favorites.filter(function(e) { return e !== this.recipe.id })
+      }
+    },
     getIngredients() {
       this.showi = !this.showi;
       let vm = this;
@@ -103,7 +130,7 @@ export default {
         })
         .then((response)=>{
           vm.ingredients = response.data.extendedIngredients;
-        })
+        });
     },
     getDirections() {
       this.showd = !this.showd;
@@ -120,7 +147,7 @@ export default {
         })
         .then((response)=>{
           vm.directions = response.data.instructions;
-        })
+        });
     }
   }
 };

@@ -24,6 +24,14 @@
               :rules="[v => !!v || 'This field is required']"
               required
             ></v-text-field>
+            <a @click="advanced=!advanced">Advanced Search</a>
+            <div v-if="advanced">
+              <v-select
+                v-model="type"
+                :items="typeItems"
+                label="Type of food (optional)"
+              ></v-select>
+            </div>
             <v-btn class="form light-blue white--text" @click="getData">Search</v-btn>
           </v-form>
           <p class="center" v-if="noResults">No results found</p>
@@ -46,14 +54,16 @@ export default {
   components: {
     RecipeResults,
   },
-  props: ["type"],
   data: () => ({
     valid: true,
     noResults: false,
     results: false,
+    advanced: false,
     recipes: [],
     main: '',
-    error: ''
+    error: '',
+    type: '',
+    typeItems: ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "drink"]
   }),
   methods: {
     getData() {
@@ -85,6 +95,7 @@ export default {
 <style>
   .form {
     width: 400px;
+    margin-top: 20px;
   }
   .center {
     margin-top: 40px;
