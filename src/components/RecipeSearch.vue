@@ -29,7 +29,18 @@
               <v-select
                 v-model="type"
                 :items="typeItems"
-                label="Type of food (optional)"
+                label="Type of food"
+              ></v-select>
+              <v-text-field
+                v-model="number"
+                label="Number of results (0 to 100)"
+                :rules="[v => (v >= 0 && v <= 100) || 'Must be a value between 1 and 100']"
+                required
+              ></v-text-field>
+              <v-select
+                v-model="cuisine"
+                :items="cuisineItems"
+                label="Cuisine"
               ></v-select>
             </div>
             <v-btn class="form light-blue white--text" @click="getData">Search</v-btn>
@@ -63,7 +74,10 @@ export default {
     main: '',
     error: '',
     type: '',
-    typeItems: ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "drink"]
+    typeItems: ["main course", "side dish", "dessert", "appetizer", "salad", "bread", "breakfast", "soup", "beverage", "sauce", "drink"],
+    number: 10,
+    cuisineItems: ["african", "chinese", "japanese", "korean", "vietnamese", "thai", "indian", "british", "irish", "french", "italian", "mexican", "spanish", "middle eastern", "jewish", "american", "cajun", "southern", "greek", "german", "nordic", "eastern european", "caribbean", "latin american"],
+    cuisine: ""
   }),
   methods: {
     getData() {
@@ -78,7 +92,8 @@ export default {
         },"params":{
         "offset":"0",
         "type": vm.type,
-        "query": vm.main
+        "query": vm.main,
+        "number": vm.number
         }
         })
       .then(function (response) {
