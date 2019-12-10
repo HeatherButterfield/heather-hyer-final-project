@@ -25,24 +25,26 @@
               required
             ></v-text-field>
             <a @click="advanced=!advanced">Advanced Search</a>
-            <div v-if="advanced">
-              <v-select
-                v-model="type"
-                :items="typeItems"
-                label="Type of food"
-              ></v-select>
-              <v-text-field
-                v-model="number"
-                label="Number of results (0 to 100)"
-                :rules="[v => (v >= 0 && v <= 100) || 'Must be a value between 1 and 100']"
-                required
-              ></v-text-field>
-              <v-select
-                v-model="cuisine"
-                :items="cuisineItems"
-                label="Cuisine"
-              ></v-select>
-            </div>
+            <transition name="fade">
+              <div v-if="advanced">
+                <v-select
+                  v-model="type"
+                  :items="typeItems"
+                  label="Type of food"
+                ></v-select>
+                <v-text-field
+                  v-model="number"
+                  label="Number of results (0 to 100)"
+                  :rules="[v => (v >= 0 && v <= 100) || 'Must be a value between 1 and 100']"
+                  required
+                ></v-text-field>
+                <v-select
+                  v-model="cuisine"
+                  :items="cuisineItems"
+                  label="Cuisine"
+                ></v-select>
+              </div>
+            </transition>
             <v-btn class="form light-blue white--text" @click="getData">Search</v-btn>
           </v-form>
           <p class="center" v-if="noResults">No results found</p>
@@ -121,6 +123,11 @@ export default {
   }
   .fade-enter-active {
     transition: opacity 1s;
-    opacity: 1;
+  }
+  .fade-leave {
+  }
+  .fade-leave-active {
+    transition: opacity 1s;
+    opacity: 0;
   }
 </style>
